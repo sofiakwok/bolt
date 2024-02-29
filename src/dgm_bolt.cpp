@@ -94,7 +94,7 @@ void DGMBolt::get_sensors_to_map(dynamic_graph_manager::VectorDGMap& map)
     map.at("base_gyroscope") = bolt_.get_base_gyroscope();
     map.at("base_attitude") = bolt_.get_base_attitude();
     map.at("base_linear_acceleration") = bolt_.get_base_linear_acceleration();
-    map.at("slider_positions") = bolt_.get_slider_positions();
+    //map.at("slider_positions") = bolt_.get_slider_positions();
 
     /**
      * Robot status

@@ -76,8 +76,8 @@ void Bolt::initialize(const std::string& network_id)
         ODRI_CONTROL_INTERFACE_YAML_PATH, robot_->joints);
 
     // Use a serial port to read slider values.
-    // serial_reader_ = std::make_shared<slider_box::SerialReader>(
-    //     "auto", BOLT_NB_SLIDER + 1);
+    serial_reader_ = std::make_shared<slider_box::SerialReader>(
+        "auto", BOLT_NB_SLIDER + 1);
 
     // Initialize the robot.
     robot_->Init();
@@ -114,23 +114,23 @@ void Bolt::acquire_sensors()
     base_linear_acceleration_ = robot_->imu->GetLinearAcceleration();
 
     // acquire the slider positions
-    if (serial_reader_->fill_vector(slider_box_data_) > 10)
-    {
-        robot_->ReportError();
-        if(nb_time_we_acquired_sensors_ % 2000 == 0)
-        {
-            robot_->ReportError(
-            "The slider box is not responding correctly, "
-            "10 iteration are missing.");
-        }
-    }
-    for (unsigned i = 0; i < slider_positions_.size(); ++i)
-    {
-        // acquire the slider
-        slider_positions_(i) = double(slider_box_data_[i + 1]) / 1024.;
-    }
-    // acquire the e-stop from the slider box
-    active_estop_ = slider_box_data_[0] == 0;
+    // if (serial_reader_->fill_vector(slider_box_data_) > 10)
+    // {
+    //     robot_->ReportError();
+    //     if(nb_time_we_acquired_sensors_ % 2000 == 0)
+    //     {
+    //         robot_->ReportError(
+    //         "The slider box is not responding correctly, "
+    //         "10 iteration are missing.");
+    //     }
+    // }
+    // for (unsigned i = 0; i < slider_positions_.size(); ++i)
+    // {
+    //     // acquire the slider
+    //     slider_positions_(i) = double(slider_box_data_[i + 1]) / 1024.;
+    // }
+    // // acquire the e-stop from the slider box
+    // active_estop_ = slider_box_data_[0] == 0;
 
     /**
      * The different status.
