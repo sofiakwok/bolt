@@ -71,6 +71,7 @@ void DGMBolt::initialize_hardware_communication_process()
     std::string network_id;
     YAML::ReadParameter(
         params_["hardware_communication"], "network_id", network_id);
+        std::cout << "network id: " << network_id << std::endl;
 
     bolt_.initialize(network_id);
 }

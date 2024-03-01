@@ -65,9 +65,11 @@ Bolt::Bolt()
 
 void Bolt::initialize(const std::string& network_id)
 {
+    std::cout << "initializing bolt" << std::endl;
     // Network info.
     network_id_ = network_id;
 
+    std::cout << "yaml path: " << ODRI_CONTROL_INTERFACE_YAML_PATH << std::endl;
     // Main driver interface.
     robot_ = odri_control_interface::RobotFromYamlFile(
         network_id_, ODRI_CONTROL_INTERFACE_YAML_PATH);
@@ -76,8 +78,8 @@ void Bolt::initialize(const std::string& network_id)
         ODRI_CONTROL_INTERFACE_YAML_PATH, robot_->joints);
 
     // Use a serial port to read slider values.
-    serial_reader_ = std::make_shared<slider_box::SerialReader>(
-        "auto", BOLT_NB_SLIDER + 1);
+    // serial_reader_ = std::make_shared<slider_box::SerialReader>(
+    //     "auto", BOLT_NB_SLIDER + 1);
 
     // Initialize the robot.
     robot_->Init();
