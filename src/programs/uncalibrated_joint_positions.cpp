@@ -17,6 +17,7 @@
  *      configuration you can just kill the application with ctrl+c and copy the
  *      date to you favorite configuration file.
  */
+// goes to the executable path ./install/bolt/lib/bolt/bolt_joint_offsets
 
 #include "bolt/utils.hpp"
 #include "bolt/bolt.hpp"
