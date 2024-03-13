@@ -38,26 +38,16 @@ static THREAD_FUNCTION_RETURN_TYPE control_loop(void* robot_void_ptr)
 
     real_time_tools::Spinner spinner;
     spinner.set_period(0.001);
-    rt_printf("Running calibration...\n");
-    while (!CTRL_C_DETECTED && robot.is_calibrating())
-    {
-        //rt_printf("robot is calibrating value: %d \n",robot.is_calibrating());
-        robot.acquire_sensors();
-        robot.send_target_joint_torque(dummy_command);
-        spinner.spin();
-    }
 
     // re-send 0 torque command
     robot.send_target_joint_torque(dummy_command);
-
-    rt_printf("Running calibration... Done.\n");
         
     int count = 0;
     spinner.set_period(0.001);
     while (!CTRL_C_DETECTED)
     {
         robot.acquire_sensors();
-        if (count % 100 == 0){
+        if (count % 200 == 0){
             print_vector("Joint Positions", -robot.get_joint_positions());
         }
         // re-send 0 torque command

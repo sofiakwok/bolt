@@ -185,8 +185,10 @@ void Bolt::send_target_joint_torque(
             break;
 
         case BoltControlState::ready:
+            //printf("In ready state\n");
             if (calibrate_request_)
             {
+                printf("calibrate_request_ variable true \n");
                 calibrate_request_ = false;
                 control_state_ = BoltControlState::calibrate;
                 robot_->joints->SetZeroCommands();
@@ -198,6 +200,7 @@ void Bolt::send_target_joint_torque(
             // calib_ctrl_ set the robot_->joints torque commands;
             if (calib_ctrl_->Run())
             {
+                printf("In calibration state running calib ctrl\n");
                 control_state_ = BoltControlState::ready;
             }
             robot_->SendCommand();

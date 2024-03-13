@@ -52,6 +52,17 @@ target_link_libraries(bolt_hardware_calibration bolt)
 # Export the target.
 list(APPEND all_exe_targets bolt_hardware_calibration)
 
+add_executable(bolt_joint_offsets programs/uncalibrated_joint_positions.cpp)
+# Add the include dependencies.
+target_include_directories(
+  bolt_joint_offsets
+  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+         $<INSTALL_INTERFACE:include>)
+# Link the dependencies.
+target_link_libraries(bolt_joint_offsets bolt)
+# Export the target.
+list(APPEND all_exe_targets bolt_joint_offsets)
+
 add_executable(bolt_humanoid_hardware_calibration programs/hardware_humanoid_calibration.cpp)
 # Add the include dependencies.
 target_include_directories(

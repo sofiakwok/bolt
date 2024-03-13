@@ -150,6 +150,7 @@ void DGMBolt::calibrate_joint_position_callback(
     mim_msgs::srv::JointCalibration::Request::SharedPtr,
     mim_msgs::srv::JointCalibration::Response::SharedPtr res)
 {
+    printf("DGMBolt::calibrate_joint_position_callback called\n");
     // parse and register the command for further call.
     add_user_command(std::bind(&DGMBolt::calibrate_joint_position, this));
 
