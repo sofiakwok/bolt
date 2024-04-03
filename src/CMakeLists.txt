@@ -5,7 +5,7 @@ set(all_exe_targets)
 # Declare the project library.
 #
 
-add_library(bolt SHARED bolt.cpp bolt_humanoid.cpp)
+add_library(bolt SHARED bolt.cpp bolt_humanoid.cpp bolt_rw.cpp)
 # Add includes
 target_include_directories(
   bolt PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -34,6 +34,15 @@ string(
 target_compile_definitions(
   bolt
   PUBLIC ODRI_CONTROL_INTERFACE_HUMANOID_YAML_PATH="${odri_control_interface_humanoid_yaml_path}")
+
+string(
+  CONCAT odri_control_interface_rw_yaml_path
+          "${PythonModules_robot_properties_bolt_PATH}/"
+          "robot_properties_bolt/resources/odri_control_interface/"
+          "bolt_rw_driver.yaml")
+target_compile_definitions(
+  bolt
+  PUBLIC ODRI_CONTROL_INTERFACE_RW_YAML_PATH="${odri_control_interface_rw_yaml_path}")
 
 # Export the target.
 list(APPEND all_lib_targets bolt)
@@ -81,7 +90,7 @@ if(${dynamic_graph_manager_FOUND})
   #
   # create library
   #
-  add_library(dgm_bolt SHARED dgm_bolt.cpp dgm_bolt_humanoid.cpp)
+  add_library(dgm_bolt SHARED dgm_bolt.cpp dgm_bolt_humanoid.cpp dgm_bolt_rw.cpp)
   # Add the include dependencies.
   target_include_directories(
     dgm_bolt PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -139,6 +148,30 @@ if(${dynamic_graph_manager_FOUND})
            ODRI_CONTROL_INTERFACE_HUMANOID_YAML_PATH="${odri_control_interface_humanoid_yaml_path}")
   # Export.
   list(APPEND all_exe_targets dg_main_bolt_humanoid)
+
+  #
+  # Create the robot executable.
+  #
+  add_executable(dg_main_bolt_rw programs/dg_main_bolt_rw.cpp)
+  # Add the include dependencies.
+  target_include_directories(
+    dg_main_bolt_rw
+    PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+           ${dynamic_graph_manager_INCLUDE_DIR} $<INSTALL_INTERFACE:include>)
+  # Link the dependencies.
+  target_link_libraries(dg_main_bolt_rw dgm_bolt)
+  # YAML parameters.
+  string(
+    CONCAT dynamic_graph_manager_rw_yaml_file
+           "${PythonModules_robot_properties_bolt_PATH}/"
+           "robot_properties_bolt/resources/dynamic_graph_manager/"
+           "dgm_parameters_bolt_rw.yaml")
+  target_compile_definitions(
+    dg_main_bolt_rw
+    PUBLIC DYNAMIC_GRAPH_MANAGER_RW_YAML_PATH="${dynamic_graph_manager_rw_yaml_file}"
+           ODRI_CONTROL_INTERFACE_RW_YAML_PATH="${odri_control_interface_rw_yaml_path}")
+  # Export.
+  list(APPEND all_exe_targets dg_main_bolt_rw)
 
   #
   # Create the robot executable.
