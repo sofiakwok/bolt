@@ -35,7 +35,7 @@ static THREAD_FUNCTION_RETURN_TYPE control_loop(void* robot_void_ptr)
 
     robot.wait_until_ready();
 
-    robot.request_calibration(joint_index_to_zero);
+    //robot.request_calibration(joint_index_to_zero);
 
     real_time_tools::Spinner spinner;
     spinner.set_period(0.001);

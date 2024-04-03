@@ -25,7 +25,7 @@ typedef Matrix<double, 6, 1> Vector6d;
 
 namespace bolt
 {
-#define BOLT_NB_MOTOR_BOARD 3
+#define BOLT_NB_MOTOR_BOARD 4
 #define BOLT_NB_MOTOR 6
 #define BOLT_NB_SLIDER 4
 
