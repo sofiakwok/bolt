@@ -19,7 +19,7 @@ class BoltRWBulletRobot(DgBoltRWBaseRobot):
             use_fixed_base=use_fixed_base,
         )
 
-        self.q0[2] = 0.3
+        self.q0[2] = 0.35487417
         # self.q0[5] = -0.1736482
         self.q0[6] = 1.0
         self.q0[7] = 0.0
