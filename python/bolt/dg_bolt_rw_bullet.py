@@ -1,5 +1,4 @@
 """
-
 License: BSD 3-Clause License
 Copyright (C) 2018-2021, New York University , Max Planck Gesellschaft
 Copyright note valid unless otherwise stated in individual files.
@@ -20,7 +19,7 @@ class BoltRWBulletRobot(DgBoltRWBaseRobot):
             use_fixed_base=use_fixed_base,
         )
 
-        self.q0[2] = 0.26487417
+        self.q0[2] = 0.3
         # self.q0[5] = -0.1736482
         self.q0[6] = 1.0
         self.q0[7] = 0.0

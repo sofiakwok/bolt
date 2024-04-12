@@ -83,14 +83,14 @@ class DgBoltBaseRobot(Robot):
         # Fill in the device.
         self.device.joint_positions.value = q[7:]
         self.device.joint_velocities.value = dq[6:]
-        self.device.slider_positions.value = np.array(
-            [
-                self._simulated_robot.get_slider_position("a"),
-                self._simulated_robot.get_slider_position("b"),
-                self._simulated_robot.get_slider_position("c"),
-                self._simulated_robot.get_slider_position("d"),
-            ]
-        )
+        # self.device.slider_positions.value = np.array(
+        #     [
+        #         self._simulated_robot.get_slider_position("a"),
+        #         self._simulated_robot.get_slider_position("b"),
+        #         self._simulated_robot.get_slider_position("c"),
+        #         self._simulated_robot.get_slider_position("d"),
+        #     ]
+        # )
         if self.device.hasSignal("contact_sensors"):
             self.device.contact_sensors.value = np.array(4 * [0.0])
 
