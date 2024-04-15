@@ -22,7 +22,7 @@ class BoltBulletRobot(DgBoltBaseRobot):
             init_sliders_pose=init_sliders_pose,
         )
 
-        self.q0[2] = 0.26487417
+        #self.q0[2] = 0.26487417
         # self.q0[5] = -0.1736482
         self.q0[6] = 1.0
         self.q0[7] = 0.0

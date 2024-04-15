@@ -36,7 +36,7 @@ class DgBoltRWBaseRobot(Robot):
         self._bullet_env = BulletEnvWithGround()
 
         # Load the robot
-        robotStartPos = [0.0, 0, 0.26487417]
+        robotStartPos = [0.0, 0, 0.35487417]
         robotStartOrientation = pybullet.getQuaternionFromEuler(
             [0.0, 0.0, 0.0]
         )
@@ -101,7 +101,7 @@ class DgBoltRWBaseRobot(Robot):
             self._simulated_robot.get_base_velocity_world()
         )
 
-    def run(self, steps=1, sleep=False):
+    def run(self, steps=10, sleep=False):
         """ Get input from Device, Step the simulation, feed the Device. """
 
         for _ in range(steps):
