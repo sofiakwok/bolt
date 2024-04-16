@@ -17,7 +17,7 @@ static THREAD_FUNCTION_RETURN_TYPE control_loop(void* args)
     Bolt& robot = *static_cast<Bolt*>(args);
 
     // Using conversion from PD gains from example.cpp
-    double kp = 3.0 * 9 * 0.025;
+    double kp = 5.0 * 9 * 0.025;
     double kd = 0.1 * 9 * 0.025;
     double t = 0.0;
     double dt = 0.001;
@@ -61,10 +61,10 @@ static THREAD_FUNCTION_RETURN_TYPE control_loop(void* args)
         {
             // rt_printf("\33[H\33[2J");  // clear screen
             // print_vector("des joint_tau  : ", desired_torque);
-            // print_vector("des joint_pos  : ", desired_joint_position);
+            print_vector("des joint_pos  : ", desired_joint_position);
             // rt_printf("\n");
-            // print_vector("act joint_pos  : ", robot.get_joint_positions());
-            // print_vector("act joint_vel  : ", robot.get_joint_velocities());
+            print_vector("act joint_pos  : ", robot.get_joint_positions());
+            //print_vector("act joint_vel  : ", robot.get_joint_velocities());
             // print_vector("act slider pos : ", robot.get_slider_positions());
             // rt_printf("act e-stop     : %s\n",
             //           robot.get_active_estop() ? "true" : "false");
