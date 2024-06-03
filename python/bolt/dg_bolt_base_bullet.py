@@ -112,6 +112,24 @@ class DgBoltBaseRobot(Robot):
             self._bullet_env.step(sleep=sleep)
             self._sim2signal()
 
+    def run_hardware_data(self, folder_name, sleep=False):
+        #load txt file
+        joint_torques = np.loadtxt(folder_name + "dg_bolt-joint_torques.dat")
+        position = np.loadtxt(folder_name + "dg_optitrack_entity-1049_position_world.dat")
+        velocity = np.loadtxt(folder_name + "dg_optitrack_entity-1049_velocity_world.dat")
+
+        steps = len(joint_torques)
+
+        for i in range(steps):
+            q = position[i, :]
+            dq = position[i, :]
+            # Fill in the device.
+            self.device.joint_positions.value = q[7:]
+            self.device.joint_velocities.value = dq[6:]
+
+            self._bullet_env.step(sleep=sleep)
+        
+
     def reset_state(self, q, dq):
         """Reset the simulator and robot state. """
         
