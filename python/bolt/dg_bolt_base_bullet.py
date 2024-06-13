@@ -113,19 +113,24 @@ class DgBoltBaseRobot(Robot):
             self._sim2signal()
 
     def run_hardware_data(self, folder_name, sleep=False):
-        #load txt file
-        joint_torques = np.loadtxt(folder_name + "dg_bolt-joint_torques.dat")
-        position = np.loadtxt(folder_name + "dg_optitrack_entity-1049_position_world.dat")
-        velocity = np.loadtxt(folder_name + "dg_optitrack_entity-1049_velocity_world.dat")
+        # for visualizing collected hardware data
 
-        steps = len(joint_torques)
+        #loading txt files
+        joint_pos = np.loadtxt(folder_name + "dg_bolt-joint_positions.dat")
+        joint_vel = np.loadtxt(folder_name + "dg_bolt-joint_velocities.dat")
+        base_pos = np.loadtxt(folder_name + "dg_optitrack_entity-1049_position_world.dat")
+        base_vel_world = np.loadtxt(folder_name + "dg_optitrack_entity-1049_velocity_world.dat")
+        base_vel_body = np.loadtxt(folder_name + "dg_optitrack_entity-1049_velocity_body.dat")
 
+        steps = len(joint_pos)
         for i in range(steps):
-            q = position[i, :]
-            dq = position[i, :]
             # Fill in the device.
-            self.device.joint_positions.value = q[7:]
-            self.device.joint_velocities.value = dq[6:]
+            self.device.joint_positions.value = joint_pos[i, :]
+            self.device.joint_velocities.value = joint_vel[i, :]
+            # Base related signals
+            self._signal_base_pos.sout.value = base_pos[i, :]
+            self._signal_base_vel.sout.value = base_vel_body[i, :]
+            self._signal_base_vel_world.sout.value = base_vel_world[i, :]
 
             self._bullet_env.step(sleep=sleep)
         
