@@ -19,7 +19,7 @@
 
 namespace Eigen
 {
-/** @brief Eigen shortcut for vector of size 6. */
+/** @brief Eigen shortcut for vector of size 7. */
 typedef Matrix<double, 7, 1> Vector7d;
 }  // namespace Eigen
 

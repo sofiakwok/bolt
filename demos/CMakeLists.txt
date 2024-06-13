@@ -56,6 +56,8 @@ endmacro(create_demo demo_name)
 # Build demos.
 #
 
+create_demo(rw_bolt_demo_pd)
+
 create_demo(bolt_demo_pd)
 
 create_demo(bolt_demo_calibration)
