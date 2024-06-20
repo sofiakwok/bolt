@@ -19,6 +19,8 @@ static THREAD_FUNCTION_RETURN_TYPE control_loop(void* args)
     // Using conversion from PD gains from example.cpp
     double kp = 5.0 * 9 * 0.025;
     double kd = 0.1 * 9 * 0.025;
+    double kp_rw = 5.0 * 0.25;
+    double kd_rw = 0.1 * 0.25;
     double t = 0.0;
     double dt = 0.001;
     double freq = 0.3;
@@ -56,11 +58,15 @@ static THREAD_FUNCTION_RETURN_TYPE control_loop(void* args)
             kp * (desired_joint_position - robot.get_joint_positions()) -
             kd * robot.get_joint_velocities();
 
+        // changing pd for reaction wheel to have more aggressive gains
+        desired_torque.tail(1) = kp_rw * (desired_joint_position.tail(1) - robot.get_joint_positions().tail(1)) -
+            kd_rw * robot.get_joint_velocities().tail(1);
+
         // print -----------------------------------------------------------
         if ((count % 1000) == 0)
         {
             // rt_printf("\33[H\33[2J");  // clear screen
-            // print_vector("des joint_tau  : ", desired_torque);
+            print_vector("des joint_tau  : ", desired_torque);
             print_vector("des joint_pos  : ", desired_joint_position);
             // rt_printf("\n");
             print_vector("act joint_pos  : ", robot.get_joint_positions());
