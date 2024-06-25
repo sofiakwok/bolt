@@ -15,7 +15,7 @@ int main(int, char*[])
     // Get the dynamic_graph_manager config file.
     std::string yaml_path = DYNAMIC_GRAPH_MANAGER_RW_YAML_PATH;
 
-    std::cout << "Loading parameters from " << yaml_path << std::endl;
+    std::cout << "dgm_bolt_rw: Loading parameters from " << yaml_path << std::endl;
     
     std::ifstream f(yaml_path.c_str());
     if (!f.good())

@@ -61,12 +61,13 @@ static THREAD_FUNCTION_RETURN_TYPE control_loop(void* args)
         // changing pd for reaction wheel to have more aggressive gains
         desired_torque.tail(1) = kp_rw * (desired_joint_position.tail(1) - robot.get_joint_positions().tail(1)) -
             kd_rw * robot.get_joint_velocities().tail(1);
+        //desired_torque[6] = 0.05;
 
         // print -----------------------------------------------------------
         if ((count % 1000) == 0)
         {
             // rt_printf("\33[H\33[2J");  // clear screen
-            print_vector("des joint_tau  : ", desired_torque);
+            print_vector("act joint_tau  : ", desired_torque);
             print_vector("des joint_pos  : ", desired_joint_position);
             // rt_printf("\n");
             print_vector("act joint_pos  : ", robot.get_joint_positions());
